@@ -20,7 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target: [x86_64, x86, aarch64, armv7, s390x, ppc64le]
+        target: [x86_64, x86, aarch64]
+        #, armv7, s390x, ppc64le]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -125,7 +126,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Compress package
-        run: ls ; tar -acf *.whl
+        run: ls ; tar -acf pseudo_tilt_py.zip *.whl
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
