@@ -167,6 +167,14 @@ dependencies = [
 
 [[package]]
 name = "pseudo_tilt"
+version = "0.1.0"
+dependencies = [
+ "pseudo_tilt 0.2.0",
+ "pyo3",
+]
+
+[[package]]
+name = "pseudo_tilt"
 version = "0.2.0"
 source = "git+https://gitlab.com/pseudowalls/tilt.rs.git#cba5877e9d7987f5aae2b5f863e89124c293df01"
 dependencies = [
@@ -279,14 +287,6 @@ name = "target-lexicon"
 version = "0.12.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fd1ba337640d60c3e96bc6f0638a939b9c9a7f2c316a1598c279828b3d1dc8c5"
-
-[[package]]
-name = "tilt_rs_py"
-version = "0.1.0"
-dependencies = [
- "pseudo_tilt",
- "pyo3",
-]
 
 [[package]]
 name = "unicode-ident"

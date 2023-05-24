@@ -1,5 +1,5 @@
 use pyo3::prelude::*;
-use pseudo_tilt::chern_character::{ChernChar, ChowGens, Δ};
+use ::pseudo_tilt::chern_character::{ChernChar, ChowGens, Δ};
 
 /// Formats the sum of two numbers as string.
 #[pyfunction]
@@ -16,7 +16,7 @@ fn bogomolov_form(r: i32, c: i32, d: i32) -> PyResult<i32> {
 
 /// A Python module implemented in Rust.
 #[pymodule]
-fn tilt_rs_py(_py: Python, m: &PyModule) -> PyResult<()> {
+fn pseudo_tilt(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
     m.add_function(wrap_pyfunction!(bogomolov_form, m)?)?;
     Ok(())
