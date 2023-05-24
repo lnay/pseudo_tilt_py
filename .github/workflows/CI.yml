@@ -40,52 +40,52 @@ jobs:
           name: wheels
           path: dist
 
-  windows:
-    runs-on: windows-latest
-    strategy:
-      matrix:
-        target: [x64, x86]
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          architecture: ${{ matrix.target }}
-      - name: Build wheels
-        uses: PyO3/maturin-action@v1
-        with:
-          target: ${{ matrix.target }}
-          args: --release --out dist --find-interpreter
-          sccache: 'true'
-          rust-toolchain: nightly
-      - name: Upload wheels
-        uses: actions/upload-artifact@v3
-        with:
-          name: wheels
-          path: dist
+#   windows:
+#     runs-on: windows-latest
+#     strategy:
+#       matrix:
+#         target: [x64, x86]
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10'
+#           architecture: ${{ matrix.target }}
+#       - name: Build wheels
+#         uses: PyO3/maturin-action@v1
+#         with:
+#           target: ${{ matrix.target }}
+#           args: --release --out dist --find-interpreter
+#           sccache: 'true'
+#           rust-toolchain: nightly
+#       - name: Upload wheels
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: wheels
+#           path: dist
 
-  macos:
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        target: [x86_64, aarch64]
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - name: Build wheels
-        uses: PyO3/maturin-action@v1
-        with:
-          target: ${{ matrix.target }}
-          args: --release --out dist --find-interpreter
-          sccache: 'true'
-          rust-toolchain: nightly
-      - name: Upload wheels
-        uses: actions/upload-artifact@v3
-        with:
-          name: wheels
-          path: dist
+#   macos:
+#     runs-on: macos-latest
+#     strategy:
+#       matrix:
+#         target: [x86_64, aarch64]
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10'
+#       - name: Build wheels
+#         uses: PyO3/maturin-action@v1
+#         with:
+#           target: ${{ matrix.target }}
+#           args: --release --out dist --find-interpreter
+#           sccache: 'true'
+#           rust-toolchain: nightly
+#       - name: Upload wheels
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: wheels
+#           path: dist
 
   sdist:
     runs-on: ubuntu-latest
@@ -124,7 +124,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Compress package
-        run: ls ; tar -acf pseudo_tilt_py.zip pyproject.toml wheels
+        run: ls ; tar -acf *.whl
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
@@ -134,6 +134,15 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: pseudo_tilt_py.zip
           asset_name: pseudo_tilt_py.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset 2
+        id: upload-release-asset2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: "*.whl"
           asset_content_type: application/zip
 #       - name: Publish to PyPI
 #         uses: PyO3/maturin-action@v1
