@@ -1,6 +1,7 @@
 # Pseudo Bridgeland Tilt Python Package
 
 This is a Python wrapper around a [Rust crate](https://gitlab.com/pseudowalls/tilt.rs) for computing a list of pseudo semistabilizers of a given Chern character (currently just on P^2).
+Less feature-ful and tested as https://github.com/benjaminschmidt/stability_conditions, but much faster.
 
 # Mathematics:
 
