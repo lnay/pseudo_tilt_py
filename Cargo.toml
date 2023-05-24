@@ -9,4 +9,5 @@ name = "tilt_rs_py"
 crate-type = ["cdylib"]
 
 [dependencies]
+pseudo_tilt = { git = "https://gitlab.com/pseudowalls/tilt.rs.git", version = "0.2.0" }
 pyo3 = "0.18.3"
