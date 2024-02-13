@@ -9,5 +9,5 @@ name = "pseudo_tilt"
 crate-type = ["cdylib"]
 
 [dependencies]
-pseudo_tilt = { git = "https://gitlab.com/pseudowalls/tilt.rs.git", version = "0.2.0" }
-pyo3 = "0.18.3"
+pseudo_tilt = { git = "https://gitlab.com/pseudowalls/tilt.rs.git", tag = "v0.5.0" }
+pyo3 = { version = "0.20.2", features = ["extension-module"] }
