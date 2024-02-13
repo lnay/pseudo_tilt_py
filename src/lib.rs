@@ -1,6 +1,6 @@
 use pyo3::prelude::*;
-use ::pseudo_tilt::chern_character::{ChernChar, ChowGens, Δ};
-use ::pseudo_tilt::tilt_stability::all_pseudo_semistabilizers;
+use ::pseudo_tilt::chern_character::{ChernChar, Δ};
+use ::pseudo_tilt::tilt_stability::left_pseudo_semistabilizers;
 
 /// Formats the sum of two numbers as string.
 #[pyfunction]
@@ -9,25 +9,24 @@ fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
 }
 
 #[pyfunction]
-fn bogomolov_form(r: i32, c: i32, d: i32) -> PyResult<i32> {
-    const P1: ChowGens = ChowGens{a: 1, b: 1, c: 1};
-    let v = ChernChar::<P1>{r, c, d};
-    Ok(Δ(&v))
+fn bogomolov_form(r: i64, c: i64, d: i64) -> PyResult<i64> {
+    let v: ChernChar::<2> = (r, c, d).into();
+    Ok(Δ(&v).raw_int_repn())
 }
 
 #[pyfunction]
-fn pseudo_semistabilizers(r: i32, c: i32, d: i32) -> PyResult<Vec<(i32, i32, i32)>> {
-    const P1: ChowGens = ChowGens{a: 1, b: 1, c: 1};
-    let v = ChernChar::<P1>{r, c, d};
+fn pseudo_semistabilizers(r: i64, c: i64, d: i64) -> PyResult<Vec<(i64, i64, i64)>> {
+    let v: ChernChar::<2> = (r, c, d).into();
     println!("Computing pseudo semistabilizers for {}", v);
     println!("");
 
-    let output = all_pseudo_semistabilizers(&v)
-        .ok_or_else(||
+    let output = left_pseudo_semistabilizers::find_all(&v)
+        .map_err(|e|
             PyErr::new::<pyo3::exceptions::PyRuntimeError, _>
-            (format!("beta_min is irrational, hence infinite pseudo semistabilizers, quitting"))
+            (e)
         )?
-        .map(|u| (u.r, u.c, u.d))
+        .into_iter()
+        .map(|u| (u.r, u.c.into(), u.d.raw_int_repn()))
         .collect::<Vec<_>>();
     Ok(output)
 }

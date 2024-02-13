@@ -179,7 +179,7 @@ dependencies = [
 
 [[package]]
 name = "pseudo_tilt"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "pseudo_tilt 0.5.0",
  "pyo3",
@@ -188,7 +188,7 @@ dependencies = [
 [[package]]
 name = "pseudo_tilt"
 version = "0.5.0"
-source = "git+https://gitlab.com/pseudowalls/tilt.rs.git?tag=v0.5.0#9d16624a94cd0abf64a8e51fde14c0c70f9218b1"
+source = "git+https://gitlab.com/pseudowalls/tilt.rs.git?rev=10545bb4a862646b57b71e0a0af3e2d304a9ff37#10545bb4a862646b57b71e0a0af3e2d304a9ff37"
 dependencies = [
  "bitflags 2.4.2",
  "num",
